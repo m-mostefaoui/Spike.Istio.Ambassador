@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Spike.Ambassador.Api/Spike.Ambassador.Api.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

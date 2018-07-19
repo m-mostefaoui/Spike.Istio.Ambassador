@@ -1,0 +1,33 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pvrapiv1
+  labels:
+    app: pvrapiv1
+spec:
+  type: ClusterIP
+  selector:
+    app: pvrapiv1
+  ports:
+  - protocol: TCP
+    port: 8010
+    name: http
+
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: pvrapiv1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pvrapiv1
+    spec:
+      containers:
+      - name: pvr-pvrapiv1
+        image: eu.gcr.io/parcel-vision/spike-ambassador-api:1.0
+        ports:
+        - containerPort: 8010

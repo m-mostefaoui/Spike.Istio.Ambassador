@@ -1,0 +1,37 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inter-api
+  labels:
+    app: inter-api
+spec:
+  type: ClusterIP
+  selector:
+    app: inter-api
+  ports:
+  - protocol: TCP
+    port: 8030
+    name: http
+
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: inter-api
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: inter-api
+    spec:
+      containers:
+      - name: inter-api
+        image: eu.gcr.io/parcel-vision/spike-ambassador-internal-api:1.0
+        ports:
+        - containerPort: 8030
+        resources:
+          limits:
+            cpu: "0.1"
+            memory: 100Mi
