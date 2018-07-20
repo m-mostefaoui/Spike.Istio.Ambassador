@@ -10,10 +10,9 @@ metadata:
       ---
       apiVersion: ambassador/v0
       kind:  Mapping
-      name:  httpbin_mapping
-      prefix: /httpbin/
-      service: httpbin.org:80
-      host_rewrite: httpbin.org
+      name:  pvrapi_mapping
+      prefix: /pvrapi/
+      service: pvrapi:8010
 spec:
   type: LoadBalancer
   ports:

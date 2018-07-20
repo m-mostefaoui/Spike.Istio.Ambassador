@@ -1,0 +1,89 @@
+---
+# api service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: pvrapi
+  labels:
+    app: pvrapi
+spec:
+  type: ClusterIP
+  selector:
+    app: pvrapi
+  ports:
+  - protocol: TCP
+    port: 8010
+    name: http
+
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: pvrapi
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pvrapi
+    spec:
+      containers:
+      - name: pvr-pvrapi
+        image: eu.gcr.io/parcel-vision/spike-istio-ambassador-api:1.0
+        ports:
+        - containerPort: 8010
+
+---
+# Application service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: pvr-app
+  labels:
+    app: pvr-app
+spec:
+  ports:
+  - port: 8020
+    name: http
+  selector:
+    app: pvr-app
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: app-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pvr-app
+        version: v1
+    spec:
+      containers:
+      - name: pvr-app
+        image: eu.gcr.io/parcel-vision/spike-istio-ambassador-application-v1:1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8020
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: app-v2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pvr-app
+        version: v2
+    spec:
+      containers:
+      - name: pvr-app
+        image: eu.gcr.io/parcel-vision/spike-istio-ambassador-application-v2:1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8020
