@@ -6,11 +6,13 @@
     public static class ApplicationSettings
     {
         public static string ApplicationBaseUrl { get; }
+        public static string ConfigServiceBaseUrl { get; }
 
         static ApplicationSettings()
         {
             var settingsResolver = GetSettingsResolver();
             ApplicationBaseUrl = settingsResolver("Spike.Ambassador.Application.BaseUrl");
+            ConfigServiceBaseUrl = settingsResolver("Spike.Ambassador.ConfigService.BaseUrl");
         }
 
         private static Func<string, string> GetSettingsResolver()

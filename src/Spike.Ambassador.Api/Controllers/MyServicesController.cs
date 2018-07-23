@@ -10,7 +10,7 @@
     using Newtonsoft.Json;
 
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class MyServicesController : Controller
     {
         [HttpGet]
         public async Task<IEnumerable<string>> Get()

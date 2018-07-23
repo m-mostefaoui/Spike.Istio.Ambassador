@@ -1,0 +1,53 @@
+---
+# config service
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-service
+spec:
+  type: ClusterIP
+  selector:
+    app: config-service
+  ports:
+  - port: 8030
+    protocol: TCP
+    name: http
+    
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: config-service-v1
+spec:
+  template:
+    metadata:
+      labels:
+        app: config-service
+        version: v1
+    spec:
+      containers:
+      - name: config-service
+        image: eu.gcr.io/parcel-vision/spike-istio-ambassador-configservice-v1:1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8030
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: config-service-v2
+spec:
+  template:
+    metadata:
+      labels:
+        app: config-service
+        version: v2
+    spec:
+      containers:
+      - name: config-service
+        image: eu.gcr.io/parcel-vision/spike-istio-ambassador-configservice-v2:1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8030
+

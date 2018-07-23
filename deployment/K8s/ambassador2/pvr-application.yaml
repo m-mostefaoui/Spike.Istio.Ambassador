@@ -31,6 +31,7 @@ spec:
       containers:
       - name: pvr-pvrapi
         image: eu.gcr.io/parcel-vision/spike-istio-ambassador-api:1.0
+        imagePullPolicy: Always
         ports:
         - containerPort: 8010
 
@@ -65,7 +66,7 @@ spec:
       containers:
       - name: pvr-app
         image: eu.gcr.io/parcel-vision/spike-istio-ambassador-application-v1:1.0
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 8020
 ---
@@ -84,6 +85,6 @@ spec:
       containers:
       - name: pvr-app
         image: eu.gcr.io/parcel-vision/spike-istio-ambassador-application-v2:1.0
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 8020
