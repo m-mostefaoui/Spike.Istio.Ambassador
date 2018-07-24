@@ -1,0 +1,38 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: config-service
+  namespace: default
+spec:
+  hosts:
+  - config-service
+  http:
+  - match:
+    - headers:
+        config-version:  
+          exact: v2
+    route:
+    - destination:
+        host: config-service
+        subset: config-service-v2
+  - route:
+    - destination:
+        host: config-service
+        subset: config-service-v1
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: config-service
+  namespace: default
+spec:
+  host: config-service 
+  subsets:
+  - name: config-service-v1
+    labels:
+      version: v1
+  - name: config-service-v2
+    labels:
+      version: v2

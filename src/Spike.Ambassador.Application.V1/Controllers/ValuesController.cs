@@ -7,12 +7,12 @@
     using System.Threading.Tasks;
     using Helpers;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Primitives;
     using Newtonsoft.Json;
 
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
@@ -26,6 +26,10 @@
             try
             {
                 httpClient = SpikeAmbassadorHttpClient.GetClient();
+                if(Request.Headers.TryGetValue("config-version", out var configVersionValues))
+                {
+                   httpClient.DefaultRequestHeaders.Add("config-version",new[]{ configVersionValues.First()});
+                }
 
                 var response = await httpClient.GetAsync("api/configs").ConfigureAwait(false);
 

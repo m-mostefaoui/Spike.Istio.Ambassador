@@ -12,13 +12,11 @@
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "app.v2:value1", "app.v2:value2" };
+            return new[] { "app.v2:value1", "app.v2:value2" };
         }
-
 
         [HttpGet("{id}")]
         public async Task<IEnumerable<string>> Get(int id)
@@ -27,6 +25,10 @@
             try
             {
                 httpClient = SpikeAmbassadorHttpClient.GetClient();
+                if (Request.Headers.TryGetValue("config-version", out var configVersionValues))
+                {
+                    httpClient.DefaultRequestHeaders.Add("config-version", new[] { configVersionValues.First() });
+                }
 
                 var response = await httpClient.GetAsync("api/configs").ConfigureAwait(false);
 
