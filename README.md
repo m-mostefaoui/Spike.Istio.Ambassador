@@ -28,7 +28,7 @@ Set permissions required to setup Istio
 kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=$(gcloud config get-value core/account)
 ```
 
-### Istio
+## Istio
 
 Download Istio
 ```
