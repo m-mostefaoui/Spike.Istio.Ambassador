@@ -801,6 +801,7 @@ kubectl -n istio-system port-forward istio-tracing-5fbd79cc-5wswz 16686:16686
 ```
 Visit http://localhost:16686 in your web browser.
 
+![alt text](images/jaeger.png "Jaeger")
 
 ## Ambassador + Istio
 ### Canary Deployments using Istio
