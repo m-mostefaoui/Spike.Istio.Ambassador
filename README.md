@@ -979,7 +979,7 @@ kubectl apply -f pvr-application-canary.yaml
 
 After setting this rule, Istio will ensure that only one fifth of the requests will be sent to the canary version, regardless of how many replicas of each version are running.
 
-![alt text](images/canary-deployment-with-.png "Ambassador: Canary deployment")
+![alt text](images/canary-deployment-with-istio.png "Ambassador: Canary deployment")
 
 
 ### More sophisticated canary deployment scenarios using Istio
