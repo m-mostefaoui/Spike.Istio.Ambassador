@@ -315,7 +315,7 @@ metadata:
       kind:  Mapping
       name:  apiv2_mapping
       prefix: /pvrapi/
-      weight: 50
+      weight: 10
       service: apiv2:8010
 spec:
   type: LoadBalancer
@@ -334,7 +334,7 @@ Then, apply it to the Kubernetes with kubectl:
 kubectl apply -f ambassador-http.yaml
 ```
 
-In this case, the `apiv2_mapping` will receive 50% of the requests for `/pvrapi/`, and Ambassador will assign the remaining 50% to the `qotm_mapping`.
+In this case, the `apiv2_mapping` will receive 10% of the requests for `/pvrapi/`, and Ambassador will assign the remaining 90% to the `qotm_mapping`.
 
 ![alt text](images/canary-deployment-with-amabassador.png "Ambassador: Canary deployment")
 
